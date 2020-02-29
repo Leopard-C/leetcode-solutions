@@ -15,7 +15,17 @@ struct TreeNode {
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        
+        if (nums.empty())
+            return nullptr;
+
+        int size = nums.size();
+        TreeNode* bst = new TreeNode(nums[size / 2]);
+        std::vector<int> left(nums.begin(), nums.begin() + size / 2);
+        std::vector<int> right(nums.begin() + size / 2 + 1, nums.end());
+        bst->left = sortedArrayToBST(left);
+        bst->right = sortedArrayToBST(right);
+
+        return bst;
     }
 };
 
